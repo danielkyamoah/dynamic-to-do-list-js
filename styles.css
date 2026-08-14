@@ -77,3 +77,9 @@ li {
 .remove-btn:hover {
   background-color: #d9534f;
 }
+
+
+.completed {
+  text-decoration: line-through;
+  opacity: 0.6;
+}

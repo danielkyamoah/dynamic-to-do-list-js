@@ -22,24 +22,34 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
 
-    const li = document.createElement('li');
-    li.textContent = taskText;
-    li.classList.add('task-item');
+   const li = document.createElement('li');
+   li.classList.add('task-item')
+   const checkbox = document.createElement('input');
+   checkbox.type = 'checkbox';
+   const textSpan = document.createElement('span');
+   textSpan.textContent = taskText;
 
-    const removeBtn = document.createElement('button');
-    removeBtn.textContent = "Remove";
-    removeBtn.className = 'remove-btn';
+   checkbox.addEventListener('change', () => {
+    if (checkbox.checked) {
+      textSpan.classList.add('completed');
+    } else {
+      textSpan.classList.remove('completed');
+    }
+   });
 
-    removeBtn.onclick = function () {
-      taskList.removeChild(li);
-      const updatedTasks = Array.from(taskList.children).map(function (item) {
-        return item.firstChild.textContent;
-      });
-      saveTasks(updatedTasks);
-    };
+   const removeBtn = document.createElement('button');
+   removeBtn.textContent = "remove";
+   removeBtn.className = 'remove-btn';
 
-    li.appendChild(removeBtn);
-    taskList.appendChild(li);
+   removeBtn.onclick = () => {
+    taskList.removeChild(li);
+   };
+
+li.appendChild(checkbox);
+li.appendChild(textSpan);
+li.appendChild(removeBtn);
+
+taskList.appendChild(li);
 
     if (save) {
       const currentTasks = JSON.parse(localStorage.getItem('tasks') || '[]');
